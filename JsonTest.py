@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-from datetime import date
 
 # Make it work for Python 2+3 and with Unicode
 import io
@@ -10,22 +9,15 @@ except NameError:
     to_unicode = str
 
 # Define data
-class MySlide:
-    def __init__(self,fileName,content,endDate,fillerStatus):
-        self.fileName = fileName
-        self.content = content
-        self.endDate = endDate
-        self.fillerStatus = fillerStatus
-        
-
-data = {'slide1': {'fileName': 'Slide1.PNG',
+data = {'slide1': {'filename': 'Slide1.PNG',
                    'content': 'key_dates',
-                   'end': [2019, 3, 2]},
-        'slide2': {'fileName': 'Slide1.PNG',
+                   'end': 'Mar. 3'},
+        'slide2': {'filename': 'Slide1.PNG',
                    'content': 'key_dates',
                    'end': 'Mar. 3'}
                    }
-print data['slide1']['end']
+
+print data['slide1']['filename']
 
 # Write JSON file
 with io.open('data.json', 'w', encoding='utf8') as outfile:
@@ -40,11 +32,4 @@ with open('data.json') as data_file:
 
 print(data == data_loaded)
 
-print data_loaded['slide1']['end']
-
-AddASlide = True
-while AddASlide:
-  TestSlide = MySlide('Slide3.PNG','Eric Test Slide','Mar. 3',True)
-  print(TestSlide)
-  print("Converting AddASlide")
-  AddASlide = False
+print data_loaded['slide1']['filename']
