@@ -21,7 +21,7 @@ class MySlide:
 data = {'slide1': {'fileName': 'Slide1.PNG',
                    'content': 'key_dates',
                    'end': [2019, 3, 2]},
-        'slide2': {'fileName': 'Slide1.PNG',
+        'slide2': {'fileName': 'Slide2.PNG',
                    'content': 'key_dates',
                    'end': 'Mar. 3'}
                    }
