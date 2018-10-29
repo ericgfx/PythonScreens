@@ -18,16 +18,16 @@ class MySlide:
         self.fillerStatus = fillerStatus
         
 
-data = {'slide1': {'fileName': 'Slide1.PNG',
+data = {'slide1' : {'fileName': 'Slide1.PNG',
                    'content': 'key_dates',
                    'end': [2019, 3, 2]},
-        'slide2': {'fileName': 'Slide2.PNG',
+        'slide2' : {'fileName': 'Slide2.PNG',
                    'content': 'key_dates',
                    'end': 'Mar. 3'}
                    }
 print data['slide1']['end']
 
-# Write JSON file
+# Create a JSON file which saves the data
 with io.open('data.json', 'w', encoding='utf8') as outfile:
     str_ = json.dumps(data,
                       indent=4, sort_keys=True,
@@ -48,3 +48,5 @@ while AddASlide:
   print(TestSlide)
   print("Converting AddASlide")
   AddASlide = False
+
+# New Concept is to create as a string, then read back using JSON, that way you can create named objects. There is bound to be a better way.
