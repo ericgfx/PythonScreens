@@ -1,5 +1,9 @@
 from node import Node
 
+def type(name, content, endDate):
+  table = name + ' ' + content.ljust(20) + endDate
+  return table
+
 
 class LinkedList:
   def __init__(self, name, content, endDate=None, next_node=None):
@@ -39,3 +43,5 @@ class LinkedList:
           current_node = next_node
       else:
         current_node = None
+
+
