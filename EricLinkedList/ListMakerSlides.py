@@ -38,10 +38,9 @@ class LinkedList:
     current_node = self.get_head_node()
     while current_node:
       if current_node.get_name() != None:
-        string_list += str(current_node.get_name())
-        string_list = string_list + " "*(20 - len(str(current_node.get_name()))) + str(current_node.get_content())
+        string_list += str(current_node.get_name()) + " "*(13 - len(str(current_node.get_name()))) + str(current_node.get_content()) + " "*(20 - len(str(current_node.get_content()))) + " End Date: "
         if current_node.get_endDate() != None:
-          string_list += " End Date: " + str(current_node.get_endDate())
+          string_list += str(current_node.get_endDate())
       string_list += "\n"
       current_node = current_node.get_next_node()
     return string_list
@@ -69,16 +68,16 @@ class LinkedList:
 
         
 a = Node("Slide1.png", "ACSC", '2018-12-04')
-b = Node("Slide2.png", "ACSC2", today, a)
+b = Node("Slide2.png", "ACSC2", '2018-12-03', a)
 c = Node("Slide3.png", "ACSC3", '2018-12-04', b)
 d = Node("Slide4.png", "ACSC4", '2018-12-04', c)
 ll = LinkedList(55, "test", '2018-12-04', d)
 print("")
-print(today)
+print("Today is " + today)
 print(ll.stringify_list2())
 ll.remove_node(today)
-print ("-------------")
+print ("-"*54)
 ll.insert_beginning('Pop-pop','Pop-test')
-print(ll.stringify_list())
-print ("-------------")
+print(ll.stringify_list2())
+print ("-"*54)
 
