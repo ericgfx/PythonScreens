@@ -1,7 +1,14 @@
 from node import Node
 from LinkedList import LinkedList
-from datetime import date
+#import datetime  #Bugger this took forever to get correct.
+from datetime import datetime, date
 today = str(date.today()) # '2017-12-26'
+
+def InputDate():
+  userDate = raw_input("Please enter date in the format mm-dd-yyyy: ")
+  month,day,year = userDate.split('-')
+  date1 = date(int(year),int(month),int(day))
+  return date1
 
 
 def type(name, content, endDate):
@@ -72,6 +79,8 @@ b = Node("Slide2.png", "ACSC2", '2018-12-03', a)
 c = Node("Slide3.png", "ACSC3", '2018-12-04', b)
 d = Node("Slide4.png", "ACSC4", '2018-12-04', c)
 ll = LinkedList(55, "test", '2018-12-04', d)
+endDate=InputDate()
+print("You entered: " + str(endDate))
 print("")
 print("Today is " + today)
 print(ll.stringify_list2())
