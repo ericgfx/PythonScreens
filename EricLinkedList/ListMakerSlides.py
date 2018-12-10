@@ -11,11 +11,6 @@ def InputDate():
   return date1
 
 
-def type(name, content, endDate):
-  table = name + ' ' + content.ljust(20) + endDate
-  return table
-
-
 class LinkedList:
   def __init__(self, name, content, endDate=None, next_node=None):
     self.head_node = Node(name, content, endDate, next_node)
@@ -56,11 +51,11 @@ class LinkedList:
     current_node = self.get_head_node()
     while current_node.get_endDate() == endDate:
       self.head_node = current_node.get_next_node()
-      current_node = self.get_head_node()
+      current_node = self.get_head_node() 
     while current_node:
       if current_node.get_next_node() != None:
         next_node = current_node.get_next_node()
-        if next_node.get_endDate() == endDate:
+        if next_node.get_endDate() <= endDate:
           current_node.set_next_node(next_node.get_next_node())
         elif next_node.get_name() != None:
           current_node = next_node
@@ -79,11 +74,11 @@ b = Node("Slide2.png", "ACSC2", '2018-12-03', a)
 c = Node("Slide3.png", "ACSC3", '2018-12-04', b)
 d = Node("Slide4.png", "ACSC4", '2018-12-04', c)
 ll = LinkedList(55, "test", '2018-12-04', d)
-endDate=InputDate()
+'''endDate=InputDate()
 print("You entered: " + str(endDate))
 print("")
 print("Today is " + today)
-print(ll.stringify_list2())
+print(ll.stringify_list2())'''
 ll.remove_node(today)
 print ("-"*54)
 ll.insert_beginning('Pop-pop','Pop-test')
