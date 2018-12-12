@@ -1,9 +1,9 @@
-from node import Node
 from LinkedList import LinkedList
 #import datetime  #Bugger this took forever to get correct.
 from datetime import datetime, date
 today = str(date.today()) # '2017-12-26'
 
+############   Input Date   ######
 def InputDate():
   userDate = raw_input("Please enter date in the format mm-dd-yyyy: ")
   month,day,year = userDate.split('-')
@@ -11,12 +11,66 @@ def InputDate():
   return date1
 
 
+############   Node from Node   ######
+'''>>> class Node:
+...   def __init__(self):
+...     self.data = None
+...     self.next = None'''
+
+class Node:
+  def __init__(self, name, content, endDate=None, next_node = None):
+    self.name = name
+    self.content = content
+    self.endDate = endDate
+    self.next_node = next_node
+    
+  def set_next_node(self, next_node):
+    self.next_node = next_node
+    
+  def get_next_node(self):
+    return self.next_node
+  
+  def get_name(self):
+    return self.name
+
+  def get_content(self):
+    return self.content
+
+  def get_endDate(self):
+    return self.endDate
+
+############   Linked List   ######
 class LinkedList:
-  def __init__(self, name, content, endDate=None, next_node=None):
-    self.head_node = Node(name, content, endDate, next_node)
+  def __init__(self):
+    self.head_node = None
 
   def get_head_node(self):
     return self.head_node
+
+  def addNode(self, data):
+    curr = self.head
+    if curr is None:
+      n = Node()
+      n.data = data
+      self.head = n
+      return
+    
+    if curr.data > data:
+      n = Node()
+      n.data = data
+      n.next = curr
+      self.head = n
+      return
+     
+    while curr.next is not None:
+      if curr.next.data > data:
+        break
+      curr = curr.next
+    n = Node()
+    n.data = data
+    n.next = curr.next
+    curr.next = n
+    return
 
   def insert_beginning(self, new_name, new_content, new_endDate=None):
     new_node = Node(new_name, new_content, new_endDate)
@@ -24,7 +78,7 @@ class LinkedList:
     self.head_node = new_node
 
 
-  def stringify_list2(self):
+  def stringify_list(self):
     string_list = ""
     current_node = self.get_head_node()
     while current_node:
@@ -53,30 +107,26 @@ class LinkedList:
 
 
 # For how to sort a linked list, check out: https://stackoverflow.com/questions/19217647/sorted-linked-list-in-python
-
-
+# Need to change data to name, content, endDate, next_node
 
 
         
-a = Node("Slide1.png", "Key Dates", '2019-3-04')
-b = Node("Slide2.png", "Facility Specialists", '2019-3-03', a)
-c = Node("Slide3.png", "Training", '2019-2-01', b)
-d = Node("Slide4.png", "Download your Guides", '2019-5-04', c)
-ll = LinkedList("Slide5.png", "Electric W2", '2019-01-04', d)
-ll.insert_beginning("Slide6.png", "Colleagues Campaign", '2018-12-30')
-ll.insert_beginning("Slide7.png", "Holiday Parties", '2018-12-13')
-ll.insert_beginning("Slide8.png", "Diabetes", '2018-12-30')
-ll.insert_beginning("Slide9.png", "Holiday Sale", '2018-12-25')
-ll.insert_beginning("Slide10.png", "Declutter", '2019-1-04')
+ll = LinkedList()
+ll.addNode("Slide1.png", "Key Dates", '2019-3-04')
+ll.addNode("Slide2.png", "Facility Specialists", '2019-3-03')
+ll.addNode("Slide3.png", "Training", '2019-2-01')
+ll.addNode("Slide4.png", "Download your Guides", '2019-5-04')
+ll.addNode("Slide5.png", "Electric W2", '2019-01-04')
+ll.addNode("Slide6.png", "Colleagues Campaign", '2018-12-30')
+ll.addNode("Slide7.png", "Holiday Parties", '2018-12-13')
+ll.addNode("Slide8.png", "Diabetes", '2018-12-30')
+ll.addNode("Slide9.png", "Holiday Sale", '2018-12-25')
+ll.addNode("Slide10.png", "Declutter", '2019-1-04')
 
 
-'''endDate=InputDate()
-print("You entered: " + str(endDate))
-print("")
-print("Today is " + today)
-print(ll.stringify_list2())'''
+print(ll.stringify_list())
 ll.remove_node(today)
 print ("-"*54)
-print(ll.stringify_list2())
+print(ll.stringify_list())
 print ("-"*54)
 
