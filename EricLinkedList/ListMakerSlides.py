@@ -23,17 +23,6 @@ class LinkedList:
     new_node.set_next_node(self.head_node)
     self.head_node = new_node
 
-  def stringify_list(self):
-    string_list = ""
-    current_node = self.get_head_node()
-    while current_node:
-      if current_node.get_name() != None:
-        string_list += str(current_node.get_name()) + "-" + str(current_node.get_content())
-        if current_node.get_endDate() != None:
-          string_list += " End Date: " + str(current_node.get_endDate())
-      string_list += "\n"
-      current_node = current_node.get_next_node()
-    return string_list
 
   def stringify_list2(self):
     string_list = ""
@@ -63,17 +52,24 @@ class LinkedList:
         current_node = None
 
 
-
+# For how to sort a linked list, check out: https://stackoverflow.com/questions/19217647/sorted-linked-list-in-python
 
 
 
 
         
-a = Node("Slide1.png", "ACSC", '2018-12-04')
-b = Node("Slide2.png", "ACSC2", '2018-12-03', a)
-c = Node("Slide3.png", "ACSC3", '2018-12-04', b)
-d = Node("Slide4.png", "ACSC4", '2018-12-04', c)
-ll = LinkedList(55, "test", '2018-12-04', d)
+a = Node("Slide1.png", "Key Dates", '2019-3-04')
+b = Node("Slide2.png", "Facility Specialists", '2019-3-03', a)
+c = Node("Slide3.png", "Training", '2019-2-01', b)
+d = Node("Slide4.png", "Download your Guides", '2019-5-04', c)
+ll = LinkedList("Slide5.png", "Electric W2", '2019-01-04', d)
+ll.insert_beginning("Slide6.png", "Colleagues Campaign", '2018-12-30')
+ll.insert_beginning("Slide7.png", "Holiday Parties", '2018-12-13')
+ll.insert_beginning("Slide8.png", "Diabetes", '2018-12-30')
+ll.insert_beginning("Slide9.png", "Holiday Sale", '2018-12-25')
+ll.insert_beginning("Slide10.png", "Declutter", '2019-1-04')
+
+
 '''endDate=InputDate()
 print("You entered: " + str(endDate))
 print("")
@@ -81,7 +77,6 @@ print("Today is " + today)
 print(ll.stringify_list2())'''
 ll.remove_node(today)
 print ("-"*54)
-ll.insert_beginning('Pop-pop','Pop-test')
 print(ll.stringify_list2())
 print ("-"*54)
 
