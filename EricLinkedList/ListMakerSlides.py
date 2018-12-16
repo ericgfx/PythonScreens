@@ -14,15 +14,15 @@ def InputDate():
 ############   Node from Node   ######
 '''>>> class Node:
 ...   def __init__(self):
-...     self.data = None
+...     self.name = None
 ...     self.next = None'''
 
 class Node:
-  def __init__(self, name, content, endDate=None, next_node = None):
+  def __init__(self, name, content, endDate=None):
     self.name = name
     self.content = content
     self.endDate = endDate
-    self.next_node = next_node
+    self.next_node = None
     
   def set_next_node(self, next_node):
     self.next_node = next_node
@@ -47,29 +47,27 @@ class LinkedList:
   def get_head_node(self):
     return self.head_node
 
-  def addNode(self, data):
-    curr = self.head
+  def addNode(self, name, content, endDate=None):
+    curr = self.get_head_node()
     if curr is None:
-      n = Node()
-      n.data = data
-      self.head = n
+      n = Node(name, content, endDate)
+      n.next_node = None
+      self.head_node = n
       return
     
-    if curr.data > data:
-      n = Node()
-      n.data = data
-      n.next = curr
-      self.head = n
+    if curr.name > name:
+      n = Node(name, content, endDate)
+      n.set_next_node(curr)
+      self.head_node = n
       return
      
-    while curr.next is not None:
-      if curr.next.data > data:
+    while curr.next_node is not None:
+      if curr.next_node.name > name:
         break
-      curr = curr.next
-    n = Node()
-    n.data = data
-    n.next = curr.next
-    curr.next = n
+      curr = curr.next_node
+    n = Node(name, content, endDate)
+    n.next_node = curr.next_node
+    curr.next_node = n
     return
 
   def insert_beginning(self, new_name, new_content, new_endDate=None):
@@ -81,6 +79,7 @@ class LinkedList:
   def stringify_list(self):
     string_list = ""
     current_node = self.get_head_node()
+
     while current_node:
       if current_node.get_name() != None:
         string_list += str(current_node.get_name()) + " "*(13 - len(str(current_node.get_name()))) + str(current_node.get_content()) + " "*(20 - len(str(current_node.get_content()))) + " End Date: "
@@ -88,13 +87,16 @@ class LinkedList:
           string_list += str(current_node.get_endDate())
       string_list += "\n"
       current_node = current_node.get_next_node()
-    return string_list
+
+    return string_list #not sure I need this
 
   def remove_node(self, endDate):
     current_node = self.get_head_node()
+
     while current_node.get_endDate() == endDate:
       self.head_node = current_node.get_next_node()
       current_node = self.get_head_node() 
+
     while current_node:
       if current_node.get_next_node() != None:
         next_node = current_node.get_next_node()
@@ -107,7 +109,7 @@ class LinkedList:
 
 
 # For how to sort a linked list, check out: https://stackoverflow.com/questions/19217647/sorted-linked-list-in-python
-# Need to change data to name, content, endDate, next_node
+# Need to change name to name, content, endDate, next_node
 
 
         
@@ -117,11 +119,11 @@ ll.addNode("Slide2.png", "Facility Specialists", '2019-3-03')
 ll.addNode("Slide3.png", "Training", '2019-2-01')
 ll.addNode("Slide4.png", "Download your Guides", '2019-5-04')
 ll.addNode("Slide5.png", "Electric W2", '2019-01-04')
-ll.addNode("Slide6.png", "Colleagues Campaign", '2018-12-30')
-ll.addNode("Slide7.png", "Holiday Parties", '2018-12-13')
 ll.addNode("Slide8.png", "Diabetes", '2018-12-30')
 ll.addNode("Slide9.png", "Holiday Sale", '2018-12-25')
 ll.addNode("Slide10.png", "Declutter", '2019-1-04')
+ll.addNode("Slide6.png", "Colleagues Campaign", '2018-12-30')
+ll.addNode("Slide7.png", "Holiday Parties", '2018-12-13')
 
 
 print(ll.stringify_list())
