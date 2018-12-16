@@ -1,5 +1,5 @@
 from LinkedList import LinkedList
-#import datetime  #Bugger this took forever to get correct.
+#Bugger this took forever to get correct. Learned to search using error message.
 from datetime import datetime, date
 today = str(date.today()) # '2017-12-26'
 
@@ -12,10 +12,6 @@ def InputDate():
 
 
 ############   Node from Node   ######
-'''>>> class Node:
-...   def __init__(self):
-...     self.name = None
-...     self.next = None'''
 
 class Node:
   def __init__(self, name, content, endDate=None):
@@ -69,11 +65,6 @@ class LinkedList:
     n.next_node = curr.next_node
     curr.next_node = n
     return
-
-  def insert_beginning(self, new_name, new_content, new_endDate=None):
-    new_node = Node(new_name, new_content, new_endDate)
-    new_node.set_next_node(self.head_node)
-    self.head_node = new_node
 
 
   def stringify_list(self):
