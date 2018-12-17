@@ -1,7 +1,19 @@
 from LinkedList import LinkedList
+from os.path import join, isfile
 #Bugger this took forever to get correct. Learned to search using error message.
 from datetime import datetime, date
+
+
+# Testing Variables
+
+Directory = '.'
+OldFilename = 'Slide1.png'
+NewFilename = 'Filler1.png'
+
+# Global Variables
 today = str(date.today()) # '2017-12-26'
+
+
 
 ############   Input Date   ######
 def InputDate():
@@ -81,7 +93,7 @@ class LinkedList:
 
     return string_list #not sure I need this
 
-  def remove_node(self, endDate):
+  def remove_expired(self, endDate):
     current_node = self.get_head_node()
 
     while current_node.get_endDate() == endDate:
@@ -100,8 +112,32 @@ class LinkedList:
 
 
 # For how to sort a linked list, check out: https://stackoverflow.com/questions/19217647/sorted-linked-list-in-python
-# Need to change name to name, content, endDate, next_node
 
+
+def joinDirectoryAndName(Directory,Filename):
+  joint = os.path.join(Directory,Filename)
+  return joint
+
+def changeName(OldFilename,NewFilename):
+  os.rename(OldFilename, NewFilename)
+  print "Success! Go have a spot o' tea."
+
+
+def runTest(OldFilename,NewFilename,Directory):
+  OldFilename = joinDirectoryAndName(Directory,OldFilename)
+  NewFilename = joinDirectoryAndName(Directory,NewFilename)
+  existsOld = os.path.isfile(OldFilename)
+  existsNew = os.path.isfile(NewFilename)
+  if existsOld and not existsNew:
+    print "Preparing to rename"
+    changeName(OldFilename,NewFilename)
+  elif not existsOld:
+    print "File named",OldFilename,"does not exist"
+  elif existsNew:
+    print "File already exists"
+
+
+runTest(OldFilename,NewFilename,Directory)
 
         
 ll = LinkedList()
@@ -118,7 +154,7 @@ ll.addNode("Slide7.png", "Holiday Parties", '2018-12-13')
 
 
 print(ll.stringify_list())
-ll.remove_node(today)
+ll.remove_expired(today)
 print ("-"*54)
 print(ll.stringify_list())
 print ("-"*54)
