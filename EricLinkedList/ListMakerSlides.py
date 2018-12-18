@@ -1,3 +1,4 @@
+import os
 from LinkedList import LinkedList
 from os.path import join, isfile
 #Bugger this took forever to get correct. Learned to search using error message.
@@ -8,7 +9,6 @@ from datetime import datetime, date
 
 Directory = '.'
 OldFilename = 'Slide1.png'
-NewFilename = 'Filler1.png'
 
 # Global Variables
 today = str(date.today()) # '2017-12-26'
@@ -48,6 +48,8 @@ class Node:
     return self.endDate
 
 ############   Linked List   ######
+# For how to sort a linked list, check out: https://stackoverflow.com/questions/19217647/sorted-linked-list-in-python
+
 class LinkedList:
   def __init__(self):
     self.head_node = None
@@ -96,7 +98,9 @@ class LinkedList:
   def remove_expired(self, endDate):
     current_node = self.get_head_node()
 
-    while current_node.get_endDate() == endDate:
+    while current_node.get_endDate() <= endDate:
+      oldFilename = str(current_node.get_name())
+      changeFilename(oldFilename, "expired")
       self.head_node = current_node.get_next_node()
       current_node = self.get_head_node() 
 
@@ -104,6 +108,8 @@ class LinkedList:
       if current_node.get_next_node() != None:
         next_node = current_node.get_next_node()
         if next_node.get_endDate() <= endDate:
+          oldFilename = str(next_node.get_name())
+          changeFilename(oldFilename, "expired")
           current_node.set_next_node(next_node.get_next_node())
         elif next_node.get_name() != None:
           current_node = next_node
@@ -111,33 +117,35 @@ class LinkedList:
         current_node = None
 
 
-# For how to sort a linked list, check out: https://stackoverflow.com/questions/19217647/sorted-linked-list-in-python
 
-
-def joinDirectoryAndName(Directory,Filename):
+def joinDirectoryAndName(Filename):
   joint = os.path.join(Directory,Filename)
   return joint
 
-def changeName(OldFilename,NewFilename):
+def changeName(OldFilename, NewFilename):
   os.rename(OldFilename, NewFilename)
   print "Success! Go have a spot o' tea."
 
 
-def runTest(OldFilename,NewFilename,Directory):
-  OldFilename = joinDirectoryAndName(Directory,OldFilename)
-  NewFilename = joinDirectoryAndName(Directory,NewFilename)
+def changeFilename(OldFilename, NewFilename):
+  OldFilename = joinDirectoryAndName(OldFilename)
   existsOld = os.path.isfile(OldFilename)
-  existsNew = os.path.isfile(NewFilename)
-  if existsOld and not existsNew:
-    print "Preparing to rename"
-    changeName(OldFilename,NewFilename)
-  elif not existsOld:
-    print "File named",OldFilename,"does not exist"
-  elif existsNew:
-    print "File already exists"
+  while True:
+    i = 1
+    NewFilename = NewFilename + str(i) +".png"
+    testFilename = joinDirectoryAndName(NewFilename)
+    existsNew = os.path.isfile(testFilename)
+    if existsOld and not existsNew:
+      print "Preparing to rename", OldFilename
+      changeName(OldFilename,testFilename)
+      break
+    elif not existsOld:
+      print "File named ", OldFilename ," does not exist"
+      break
 
 
-runTest(OldFilename,NewFilename,Directory)
+
+#changeFilename(OldFilename, "remove")
 
         
 ll = LinkedList()
@@ -151,9 +159,11 @@ ll.addNode("Slide9.png", "Holiday Sale", '2018-12-25')
 ll.addNode("Slide10.png", "Declutter", '2019-1-04')
 ll.addNode("Slide6.png", "Colleagues Campaign", '2018-12-30')
 ll.addNode("Slide7.png", "Holiday Parties", '2018-12-13')
+ll.addNode("Slide11.png", "Test", '2018-12-03')
+ll.addNode("Slide12.png", "test", '2018-12-13')
+ll.addNode("Slide13.png", "Test Remove", '2018-11-30')
 
-
-print(ll.stringify_list())
+#print(ll.stringify_list())
 ll.remove_expired(today)
 print ("-"*54)
 print(ll.stringify_list())
