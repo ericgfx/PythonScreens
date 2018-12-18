@@ -82,7 +82,8 @@ class LinkedList:
 
 
   def stringify_list(self):
-    string_list = ""
+    print""
+    string_list = str("-"*54) +"\n"
     current_node = self.get_head_node()
 
     while current_node:
@@ -92,7 +93,7 @@ class LinkedList:
           string_list += str(current_node.get_endDate())
       string_list += "\n"
       current_node = current_node.get_next_node()
-
+    string_list += str("-"*54) +"\n"
     return string_list #not sure I need this
 
   def remove_expired(self, endDate):
@@ -128,20 +129,24 @@ def changeName(OldFilename, NewFilename):
 
 
 def changeFilename(OldFilename, NewFilename):
+  print "Preparing to rename", OldFilename
   OldFilename = joinDirectoryAndName(OldFilename)
   existsOld = os.path.isfile(OldFilename)
+  i = 1
   while True:
-    i = 1
-    NewFilename = NewFilename + str(i) +".png"
-    testFilename = joinDirectoryAndName(NewFilename)
-    existsNew = os.path.isfile(testFilename)
+    tempFilename = NewFilename + str(i) +".png"
+    i += 1
+#    testFilename = joinDirectoryAndName(tempFilename)
+    existsNew = os.path.isfile(joinDirectoryAndName(tempFilename))
     if existsOld and not existsNew:
-      print "Preparing to rename", OldFilename
-      changeName(OldFilename,testFilename)
+      changeName(OldFilename,joinDirectoryAndName(tempFilename))
       break
     elif not existsOld:
       print "File named ", OldFilename ," does not exist"
       break
+    elif existsNew:
+      print "File", tempFilename," already exists."
+
 
 
 
@@ -162,10 +167,10 @@ ll.addNode("Slide7.png", "Holiday Parties", '2018-12-13')
 ll.addNode("Slide11.png", "Test", '2018-12-03')
 ll.addNode("Slide12.png", "test", '2018-12-13')
 ll.addNode("Slide13.png", "Test Remove", '2018-11-30')
+print(ll.stringify_list())
 
 #print(ll.stringify_list())
 ll.remove_expired(today)
-print ("-"*54)
 print(ll.stringify_list())
-print ("-"*54)
+
 
