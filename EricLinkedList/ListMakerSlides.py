@@ -88,7 +88,7 @@ class LinkedList:
 
     while current_node:
       if current_node.get_name() != None:
-        string_list += str(current_node.get_name()) + " "*(13 - len(str(current_node.get_name()))) + str(current_node.get_content()) + " "*(20 - len(str(current_node.get_content()))) + " End Date: "
+        string_list += str(current_node.get_name())+"" + " "*(13 - len(str(current_node.get_name()))) + str(current_node.get_content()) + " "*(20 - len(str(current_node.get_content()))) + " End Date: "
         if current_node.get_endDate() != None:
           string_list += str(current_node.get_endDate())
       string_list += "\n"
@@ -129,12 +129,16 @@ def changeName(OldFilename, NewFilename):
 
 
 def changeFilename(OldFilename, NewFilename):
-  print "Preparing to rename", OldFilename
+  OldFilename += ".png"
+  print "Preparing to rename", OldFilename + " to " + str(NewFilename)+".png"
   OldFilename = joinDirectoryAndName(OldFilename)
   existsOld = os.path.isfile(OldFilename)
   i = 1
   while True:
-    tempFilename = NewFilename + str(i) +".png"
+    if NewFilename == 'expired':
+      tempFilename = NewFilename + str(i) +".png"
+    else:
+      tempFilename = NewFilename +".png"
     i += 1
 #    testFilename = joinDirectoryAndName(tempFilename)
     existsNew = os.path.isfile(joinDirectoryAndName(tempFilename))
@@ -154,23 +158,25 @@ def changeFilename(OldFilename, NewFilename):
 
         
 ll = LinkedList()
-ll.addNode("Slide1.png", "Key Dates", '2019-3-04')
-ll.addNode("Slide2.png", "Facility Specialists", '2019-3-03')
-ll.addNode("Slide3.png", "Training", '2019-2-01')
-ll.addNode("Slide4.png", "Download your Guides", '2019-5-04')
-ll.addNode("Slide5.png", "Electric W2", '2019-01-04')
-ll.addNode("Slide8.png", "Diabetes", '2018-12-30')
-ll.addNode("Slide9.png", "Holiday Sale", '2018-12-25')
-ll.addNode("Slide10.png", "Declutter", '2019-1-04')
-ll.addNode("Slide6.png", "Colleagues Campaign", '2018-12-30')
-ll.addNode("Slide7.png", "Holiday Parties", '2018-12-13')
-ll.addNode("Slide11.png", "Test", '2018-12-03')
-ll.addNode("Slide12.png", "test", '2018-12-13')
-ll.addNode("Slide13.png", "Test Remove", '2018-11-30')
+ll.addNode("Slide1", "Key Dates", '2019-3-04')
+ll.addNode("Slide2", "Facility Specialists", '2019-3-03')
+ll.addNode("Slide3", "Training", '2019-2-01')
+ll.addNode("Slide4", "Download your Guides", '2019-5-04')
+ll.addNode("Slide5", "Electric W2", '2019-01-04')
+ll.addNode("Slide8", "Diabetes", '2018-12-30')
+ll.addNode("Slide9", "Holiday Sale", '2018-12-25')
+ll.addNode("Slide10", "Declutter", '2019-1-04')
+ll.addNode("Slide6", "Colleagues Campaign", '2018-12-30')
+ll.addNode("Slide7", "Holiday Parties", '2018-12-13')
+ll.addNode("Slide11", "Test", '2018-12-03')
+ll.addNode("Slide12", "test", '2018-12-13')
+ll.addNode("Slide13", "Test Remove", '2018-11-30')
 print(ll.stringify_list())
 
 #print(ll.stringify_list())
 ll.remove_expired(today)
 print(ll.stringify_list())
 
-
+changeFilename('expired1', 'Slide7')
+changeFilename('expired2', 'Slide11')
+changeFilename('expired3', 'Slide12')
