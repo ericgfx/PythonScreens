@@ -99,7 +99,7 @@ class LinkedList:
     string_list += str("-"*54) +"\n"
     return string_list #not sure I need this
 
-  def remove_expired(self, endDate):
+  def remove_expired(self, endDate=today):
     current_node = self.get_head_node()
 
     while current_node.get_endDate() <= endDate:
@@ -160,29 +160,6 @@ def changeFilename(OldFilename, NewFilename):
 #changeFilename(OldFilename, "remove")
 
         
-ll = LinkedList('CPMC')
-ll.addNode("Slide1", "Key Dates", '2019-3-04')
-ll.addNode("Slide2", "Facility Specialists", '2019-3-03')
-ll.addNode("Slide3", "Training", '2019-2-01')
-ll.addNode("Slide4", "Download your Guides", '2019-5-04')
-ll.addNode("Slide5", "Electric W2", '2019-01-04')
-ll.addNode("Slide8", "Diabetes", '2018-12-30')
-ll.addNode("Slide9", "Holiday Sale", '2018-12-25')
-ll.addNode("Slide10", "Declutter", '2019-1-04')
-ll.addNode("Slide6", "Colleagues Campaign", '2018-12-30')
-ll.addNode("Slide7", "Holiday Parties", '2018-12-13')
-ll.addNode("Slide11", "Test", '2018-12-03')
-ll.addNode("Slide12", "test", '2018-12-13')
-ll.addNode("Slide13", "Test Remove", '2018-11-30')
-#print(ll.displayList())
-#print(ll.displayList())
-#ll.remove_expired(today)
-#print(ll.displayList())
-changeFilename('expired1', 'Slide7')
-changeFilename('expired2', 'Slide11')
-changeFilename('expired3', 'Slide12')
-#print str(json.dump(ll, open('cpmc.json', 'wb')))
-pickle.dump(ll, open('cpmc.pkl', 'wb'))
 x = pickle.load(open('cpmc.pkl'))
-print str(x)
-#print(x.displayList())
+x.remove_expired(today)
+print(x.displayList())
