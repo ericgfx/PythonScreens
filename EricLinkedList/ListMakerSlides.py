@@ -9,10 +9,9 @@ import cPickle as pickle
 # Testing Variables
 
 Directory = '.'
-OldFilename = 'Slide1.png'
 
 # Global Variables
-today = str(date.today()) # '2017-12-26'
+today = str(date.today()) # ie '2017-12-26'
 
 
 
@@ -60,6 +59,12 @@ class LinkedList:
   def get_head_node(self):
     return self.head_node
 
+  def archive(self):
+    print "Archive function not ready yet."
+
+  def inputSlide(self):
+    print "Create New Slide not ready yet."
+
   def addNode(self, name, content, endDate=None):
     curr = self.get_head_node()
     if curr is None:
@@ -86,6 +91,7 @@ class LinkedList:
 
   def displayList(self):
     print""
+    print "Today's Date: "+today+""
     string_list = str("-"*54) +"\n"
     current_node = self.get_head_node()
 
@@ -97,7 +103,7 @@ class LinkedList:
       string_list += "\n"
       current_node = current_node.get_next_node()
     string_list += str("-"*54) +"\n"
-    return string_list #not sure I need this
+    return string_list
 
   def remove_expired(self, endDate):
     current_node = self.get_head_node()
@@ -121,6 +127,11 @@ class LinkedList:
         current_node = None
 
 
+
+
+############   Global Functions   ######
+def changeList():
+  print "Function not ready yet."
 
 def joinDirectoryAndName(Filename):
   joint = os.path.join(Directory,Filename)
@@ -157,31 +168,46 @@ def changeFilename(OldFilename, NewFilename):
 
 
 
-#changeFilename(OldFilename, "remove")
+############   User Functions   ######
+def executeUserChoice(argument):
+  switcher = {
+    1: ll.remove_expired(today),
+    2: ll.archive(),
+    3: ll.inputSlide(),
+    4: changeList()
+  }
+  #Get the function from switcher
+  func = switcher.get(argument, lambda: "invalid")
+  #Execute the function
+  return func()
+
+def whatNow():
+  userChoice = 0
+  print "---Make a selection---"
+  print " 1 Remove Expired Slides"
+  print " 2 Archive a Current Slide"
+  print " 3 Add a new slide"
+  print " 4 Change List Current List is: " + str(ll.listName) + "."
+  while (userChoice > 4 or userChoice < 1):
+    userChoice = int(raw_input("What would you like to do next? (1 - 4):"))
+    print(userChoice)
+  executeUserChoice(userChoice)
+
 
         
 ll = LinkedList('CPMC')
 ll.addNode("Slide1", "Key Dates", '2019-3-04')
+ll.addNode("Slide10", "Declutter", '2019-1-04')
 ll.addNode("Slide2", "Facility Specialists", '2019-3-03')
 ll.addNode("Slide3", "Training", '2019-2-01')
 ll.addNode("Slide4", "Download your Guides", '2019-5-04')
 ll.addNode("Slide5", "Electric W2", '2019-01-04')
-ll.addNode("Slide8", "Diabetes", '2018-12-30')
-ll.addNode("Slide9", "Holiday Sale", '2018-12-25')
-ll.addNode("Slide10", "Declutter", '2019-1-04')
 ll.addNode("Slide6", "Colleagues Campaign", '2018-12-30')
-ll.addNode("Slide7", "Holiday Parties", '2018-12-13')
-ll.addNode("Slide11", "Test", '2018-12-03')
-ll.addNode("Slide12", "test", '2018-12-13')
-ll.addNode("Slide13", "Test Remove", '2018-11-30')
-#print(ll.displayList())
-#print(ll.displayList())
-ll.remove_expired(today)
+ll.addNode("Slide7", "Block Party", '2019-02-02')
+ll.addNode("Slide8", "Diabetes", '2019-06-30')
+ll.addNode("Slide9", "Diabetes 2", '2019-06-25')
 print(ll.displayList())
-changeFilename('expired1', 'Slide7')
-changeFilename('expired2', 'Slide11')
-changeFilename('expired3', 'Slide12')
-print str(json.dump(ll, open('cpmc.json', 'wb')))
+whatNow()
 '''pickle.dump(ll, open('cpmc.pkl', 'wb'))
 x = pickle.load(open('cpmc.pkl'))
 print str(x)
