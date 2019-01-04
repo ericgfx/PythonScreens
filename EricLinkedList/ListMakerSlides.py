@@ -3,8 +3,11 @@ from LinkedList import LinkedList
 from os.path import join, isfile
 #Bugger this took forever to get correct. Learned to search using error message.
 from datetime import datetime, date
-import json
-import cPickle as pickle
+import json, io
+try:
+    to_unicode = unicode
+except NameError:
+    to_unicode = str
 
 # Testing Variables
 
@@ -65,16 +68,16 @@ class LinkedList:
   def inputSlide(self):
     print "Create New Slide not ready yet."
 
-  def addNode(self, name, content, endDate=None):
+  def addNode(self, name, content, endDate=None, startDate=None):
     curr = self.get_head_node()
     if curr is None:
-      n = Node(name, content, endDate)
+      n = Node(name, content, endDate, startDate)
       n.next_node = None
       self.head_node = n
       return
     
     if curr.name > name:
-      n = Node(name, content, endDate)
+      n = Node(name, content, endDate, startDate)
       n.set_next_node(curr)
       self.head_node = n
       return
@@ -83,7 +86,7 @@ class LinkedList:
       if curr.next_node.name > name:
         break
       curr = curr.next_node
-    n = Node(name, content, endDate)
+    n = Node(name, content, endDate, startDate)
     n.next_node = curr.next_node
     curr.next_node = n
     return
@@ -171,43 +174,45 @@ def changeFilename(OldFilename, NewFilename):
 ############   User Functions   ######
 def executeUserChoice(argument):
   switcher = {
-    1: ll.remove_expired(today),
-    2: ll.archive(),
-    3: ll.inputSlide(),
-    4: changeList()
+    '1' : ll.remove_expired(today),
+    '2' : ll.archive(),
+    '3' : ll.inputSlide(),
+    '4' : changeList()
   }
   #Get the function from switcher
-  func = switcher.get(argument, lambda: "invalid")
-  #Execute the function
-  return func()
+  foo = switcher.get[str(argument), "Error"]
+  return foo
+
 
 def whatNow():
-  userChoice = 0
   print "---Make a selection---"
   print " 1 Remove Expired Slides"
   print " 2 Archive a Current Slide"
   print " 3 Add a new slide"
   print " 4 Change List Current List is: " + str(ll.listName) + "."
-  while (userChoice > 4 or userChoice < 1):
-    userChoice = int(raw_input("What would you like to do next? (1 - 4):"))
-    print(userChoice)
-  executeUserChoice(userChoice)
+  userChoice = int(raw_input("What would you like to do next? (1 - 4):"))
+  executeUserChoice(userChoice) #this needs love
+  '''if userChoice <= 2 : ll.remove_expired(today)
+  elif userChoice ==
+'''
+
+def loadList(listName):
+  listName += '.json'
+  with open('cpmc.json') as data_file:
+    data_loaded = json.load(data_file)
+  return data_loaded
 
 
-        
-ll = LinkedList('CPMC')
-ll.addNode("Slide1", "Key Dates", '2019-3-04')
-ll.addNode("Slide10", "Declutter", '2019-1-04')
-ll.addNode("Slide2", "Facility Specialists", '2019-3-03')
-ll.addNode("Slide3", "Training", '2019-2-01')
-ll.addNode("Slide4", "Download your Guides", '2019-5-04')
-ll.addNode("Slide5", "Electric W2", '2019-01-04')
-ll.addNode("Slide6", "Colleagues Campaign", '2018-12-30')
-ll.addNode("Slide7", "Block Party", '2019-02-02')
-ll.addNode("Slide8", "Diabetes", '2019-06-30')
-ll.addNode("Slide9", "Diabetes 2", '2019-06-25')
-print(ll.displayList())
+###### Program ######
+activeList = 'cpmc'
+ll = LinkedList(activeList) 
+print(ll.listName)
+slideList = loadList(activeList)
+for x in slideList:
+  ll.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
+print(ll.displayList())  
 whatNow()
+
 '''pickle.dump(ll, open('cpmc.pkl', 'wb'))
 x = pickle.load(open('cpmc.pkl'))
 print str(x)

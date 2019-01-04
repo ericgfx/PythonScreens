@@ -6,6 +6,7 @@ from datetime import datetime, date
 import json
 import cPickle as pickle
 
+# okay Pickling works, but pickling doesn't fly for most due to its security issues.
 # Testing Variables
 
 Directory = '.'

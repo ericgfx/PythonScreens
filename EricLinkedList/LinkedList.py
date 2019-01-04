@@ -1,3 +1,5 @@
+#this is straight up code from I believe CodeCademy.com
+
 from node import Node
 
 def type(name, content, endDate):
