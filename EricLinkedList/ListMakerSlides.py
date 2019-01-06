@@ -17,13 +17,17 @@ Directory = '.'
 today = str(date.today()) # ie '2017-12-26'
 
 
-
 ############   Input Date   ######
 def InputDate():
   userDate = raw_input("Please enter date in the format mm-dd-yyyy: ")
   month,day,year = userDate.split('-')
   date1 = date(int(year),int(month),int(day))
   return date1
+
+############   Global Functions #####
+def alertBlock(message):
+    print "\n" + str("-"*54) + "\n" + message + "\n" + str("-"*54) + "\n \n"
+
 
 
 ############   Node from Node   ######
@@ -32,7 +36,10 @@ class Node:
   def __init__(self, name, content, endDate=None, startDate=None):
     self.name = name
     self.content = content
-    self.endDate = endDate
+    if (endDate == 'null' or endDate == " " or endDate == None):
+      self.endDate = '9999-12-31'
+    else:
+      self.endDate = endDate
     self.startDate = startDate
     self.next_node = None
     
@@ -62,12 +69,6 @@ class LinkedList:
   def get_head_node(self):
     return self.head_node
 
-  def archive(self):
-    print "Archive function not ready yet."
-
-  def inputSlide(self):
-    print "Create New Slide not ready yet."
-
   def addNode(self, name, content, endDate=None, startDate=None):
     curr = self.get_head_node()
     if curr is None:
@@ -90,7 +91,6 @@ class LinkedList:
     n.next_node = curr.next_node
     curr.next_node = n
     return
-
 
   def displayList(self):
     print""
@@ -128,13 +128,48 @@ class LinkedList:
           current_node = next_node
       else:
         current_node = None
+  
+  def archiveList(self):
+    alertBlock("Archive function not ready yet.")
+
+  def inputSlide(self):
+    alertBlock("Create New Slide not ready yet.")
+
+  def executeUserChoice(self, argument):
+      method_name = 'number_' + str(argument)
+      # Get the method from 'self'. Default to a lambda.
+      method = getattr(self, method_name, lambda: self.invalidArg())
+      # Call the method as we return it
+      return method()
+
+  def invalidArg(self):
+    alertBlock("Invalid Argument")
+
+  def number_1(self):
+    print(self.displayList())
+
+  def number_2(self):
+    self.remove_expired(today)
+
+  def number_3(self):
+    self.inputSlide()
+
+  def number_4(self):
+    self.archiveList()
+
+  def number_5(self):
+    changeList()
+
+  def number_X(self):
+    global runProgram 
+    alertBlock('Exiting Program')
+    runProgram = False
+    return runProgram
 
 
 
 
-############   Global Functions   ######
-def changeList():
-  print "Function not ready yet."
+############   OS Functions   ######
 
 def joinDirectoryAndName(Filename):
   joint = os.path.join(Directory,Filename)
@@ -172,49 +207,42 @@ def changeFilename(OldFilename, NewFilename):
 
 
 ############   User Functions   ######
-def executeUserChoice(argument):
-  switcher = {
-    '1' : ll.remove_expired(today),
-    '2' : ll.archive(),
-    '3' : ll.inputSlide(),
-    '4' : changeList()
-  }
-  #Get the function from switcher
-  foo = switcher.get[str(argument), "Error"]
-  return foo
+def changeList():
+  activeList = str(raw_input("What list would you like to work on? (cpmc,WOW): "
+))
+  global ll
+  ll = LinkedList(activeList)   
+  print(ll.listName)
+  slideList = loadList(activeList)
+  for x in slideList:
+    ll.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
 
 
 def whatNow():
+  if (ll.listName):
+    print "Current List is: " + str(ll.listName) + "."
   print "---Make a selection---"
-  print " 1 Remove Expired Slides"
-  print " 2 Archive a Current Slide"
-  print " 3 Add a new slide"
-  print " 4 Change List Current List is: " + str(ll.listName) + "."
-  userChoice = int(raw_input("What would you like to do next? (1 - 4):"))
-  executeUserChoice(userChoice) #this needs love
-  '''if userChoice <= 2 : ll.remove_expired(today)
-  elif userChoice ==
-'''
+  print "  1   Display List"
+  print "  2   Remove Expired Slides"
+  print "  3   Add a new slide"
+  print "  4   Archive a Current Slide"
+  print "  5   Load a list"
+  userChoice = (raw_input("What would you like to do next? (1 - 5, eXit):"))
+  ll.executeUserChoice(userChoice)
+
 
 def loadList(listName):
   listName += '.json'
-  with open('cpmc.json') as data_file:
+  with open(listName) as data_file:
     data_loaded = json.load(data_file)
   return data_loaded
 
 
 ###### Program ######
-activeList = 'cpmc'
-ll = LinkedList(activeList) 
-print(ll.listName)
-slideList = loadList(activeList)
-for x in slideList:
-  ll.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
-print(ll.displayList())  
-whatNow()
-
-'''pickle.dump(ll, open('cpmc.pkl', 'wb'))
-x = pickle.load(open('cpmc.pkl'))
-print str(x)
-'''
-#print(x.displayList())
+runProgram = True
+ll = ""
+while runProgram:
+  if ll:
+    whatNow()
+  else:
+    changeList()
