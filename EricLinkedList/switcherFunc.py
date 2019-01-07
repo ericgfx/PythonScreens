@@ -6,7 +6,7 @@
 
 #Get the function from switcher
 
-'''def executeUserChoice(argument):
+def executeUserChoice(argument):
   switcher = {
     '1' : ll.remove_expired(today),
     '2' : ll.archive(),
@@ -16,7 +16,7 @@
   }
   exitProgram = switcher.get[argument, "Error"]
   return exitProgram
-'''
+
 
 
 #https://jaxenter.com/implement-switch-case-statement-python-138315.html
@@ -31,9 +31,6 @@ def exitProgram():
 
 class Switcher(object):
     def numbers_to_methods_to_strings(self, argument):
-        """Dispatch method"""
-        # prefix the method_name with 'number_' because method names
-        # cannot begin with an integer.
         method_name = 'number_' + str(argument)
         # Get the method from 'self'. Default to a lambda.
         method = getattr(self, method_name, lambda: self.invalidArg())
