@@ -132,11 +132,12 @@ class LinkedList:
   def archiveList(self):
     alertBlock("Archive function not ready yet.")
 
+  def searchName(self, slideName):
+    pass
+    
   def inputSlide(self):
+    pass
     slideNames = ['Slide1','Slide2','Slide3','Slide4','Slide5','Slide6','Slide7','Slide8','Slide9','Slide10']
-    for slideName in slideNames:
-      self.searchNames(slideName)
-
 
   def executeUserChoice(self, argument):
       method_name = 'number_' + str(argument)

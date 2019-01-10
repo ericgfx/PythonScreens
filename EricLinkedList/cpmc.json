@@ -6,6 +6,12 @@
         "startDate": null
     },
     {
+        "content": "Declutter",
+        "endDate": "2019-01-04",
+        "name": "Slide10",
+        "startDate": null
+    },
+    {
         "content": "Facility Specialists",
         "endDate": "2019-03-03",
         "name": "Slide2",
@@ -24,8 +30,8 @@
         "startDate": null
     },
     {
-        "content": "Electric W2",
-        "endDate": "2019-01-04",
+        "content": "Moving Sale",
+        "endDate": "2019-01-18",
         "name": "Slide5",
         "startDate": null
     },
@@ -36,27 +42,21 @@
         "startDate": null
     },
     {
+        "content": "Block Parties",
+        "endDate": "2019-02-02",
+        "name": "Slide7",
+        "startDate": null
+    },
+    {
         "content": "Diabetes",
-        "endDate": null,
+        "endDate": "2019-06-25",
         "name": "Slide8",
         "startDate": null
     },
     {
         "content": "Diabetes2",
-        "endDate": null,
+        "endDate": "2019-06-25",
         "name": "Slide9",
-        "startDate": null
-    },
-    {
-        "content": "Declutter",
-        "endDate": "2019-01-04",
-        "name": "Slide10",
-        "startDate": null
-    },
-    {
-        "content": "Block Parties",
-        "endDate": "2019-02-02",
-        "name": "Slide7",
         "startDate": null
     }
 ]
