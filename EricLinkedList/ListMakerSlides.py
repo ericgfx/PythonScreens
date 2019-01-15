@@ -21,7 +21,7 @@ def alertBlock(message):
   if message != "":
     print "\n" + str("-"*54) + "\n" + message + "\n" + str("-"*54)
   else:
-    print "\n" + str("-"*54) + "\n" + str("-"*54) + "\n"
+    print "\n" + str("-"*54) + "\n" + str("-"*54) + "\n"*2
 
 
 
@@ -156,17 +156,20 @@ class LinkedList:
 
   def remove_expired(self, endDate):
     current_node = self.get_head_node()
+    beginningSlideCount = self.slideCount
 #to remove a slide I first check the head node
     while current_node.get_endDate() <= endDate:
       oldOsFilename = str(current_node.get_name())
       changeOsFilename(oldOsFilename, "expired")
       self.head_node = current_node.get_next_node()
-      current_node = self.get_head_node() 
+      current_node = self.get_head_node()
+      self.slideCount -= 1 
 
     while current_node:
       if current_node.get_next_node() != None:
         next_node = current_node.get_next_node()
         if next_node.get_endDate() <= endDate:
+          self.slideCount -= 1
           oldOsFilename = str(next_node.get_name())
           changeOsFilename(oldOsFilename, "expired")
           current_node.set_next_node(next_node.get_next_node())
@@ -174,6 +177,7 @@ class LinkedList:
           current_node = next_node
       else:
         current_node = None
+    alertBlock('Slides removed: ' + str(beginningSlideCount - self.slideCount))
   
   def archiveList(self):
     alertBlock("Archive function not ready yet.")
@@ -204,7 +208,6 @@ class LinkedList:
   def number_2(self):
     alertBlock("Removing Expired")
     self.remove_expired(today)
-    alertBlock("")
 
   def number_3(self):
     alertBlock("Input New Slide")

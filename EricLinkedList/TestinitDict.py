@@ -4,7 +4,7 @@ try:
 except NameError:
     to_unicode = str
     
-listFilename = 'cpmc'
+listFilename = 'WOW'
 slideList = []
 def slide(name, content, endDate = None, startDate = None):
 	slide= {
@@ -20,12 +20,11 @@ slideList.append(slide("Slide1", "Key Dates", '2019-03-04'))
 slideList.append(slide("Slide2", "Facility Specialists", '2019-03-03'))
 slideList.append(slide("Slide3", "Training", '2019-02-01'))
 slideList.append(slide("Slide4", "Download your Guides", '2019-05-04'))
-slideList.append(slide("Slide5", "Moving Sale", '2019-01-18'))
-slideList.append(slide("Slide6", "Farewell", '2019-02-23'))
+slideList.append(slide("Slide5", "EXPIRATIONAL", '2019-01-1'))
+slideList.append(slide("Slide6", "Never Endingggggggggg",))
 slideList.append(slide("Slide7", "Open House Parties", '2019-02-02'))
 slideList.append(slide("Slide8", "Diabetes", '2019-06-25'))
-slideList.append(slide("Slide9", "Diabetes2", '2019-06-25'))
-slideList.append(slide("Slide10", "STD_See the Future", '2019-02-07'))
+
 
 with io.open(listFilename + '.json', 'w', encoding='utf8') as outfile:
     str_ = json.dumps(slideList,
