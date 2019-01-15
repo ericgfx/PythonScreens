@@ -1,14 +1,14 @@
 [
     {
-        "content": "Key Dates",
-        "endDate": "2019-03-04",
-        "name": "Slide1",
+        "content": "KillMe",
+        "endDate": "2018-03-04",
+        "name": "Slide0",
         "startDate": null
     },
     {
-        "content": "Declutter",
-        "endDate": "2019-01-04",
-        "name": "Slide10",
+        "content": "Key Dates",
+        "endDate": "2019-03-04",
+        "name": "Slide1",
         "startDate": null
     },
     {
@@ -37,7 +37,7 @@
     },
     {
         "content": "Farewell",
-        "endDate": "2018-02-23",
+        "endDate": "2019-02-23",
         "name": "Slide6",
         "startDate": null
     },
@@ -45,18 +45,6 @@
         "content": "Open House Parties",
         "endDate": "2019-02-02",
         "name": "Slide7",
-        "startDate": null
-    },
-    {
-        "content": "Diabetes",
-        "endDate": "2019-06-25",
-        "name": "Slide8",
-        "startDate": null
-    },
-    {
-        "content": "Diabetes2",
-        "endDate": "2019-06-25",
-        "name": "Slide9",
         "startDate": null
     }
 ]
