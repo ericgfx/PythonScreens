@@ -9,24 +9,29 @@ try:
 except NameError:
     to_unicode = str
 
-# Testing Variables
+############   Testing Variables #####
 Directory = '.'
 
-# Global Variables
+############   Global Variables ######
 today = str(date.today()) # ie '2017-12-26'
 
 
-############   Global Functions #####
+############   Global Functions ######
 def alertBlock(message):
   if message != "":
-    print "\n" + str("-"*54) + "\n" + message + "\n" + str("-"*54)
+    print "\n" + str("-"*54) + "\n" + message + "\n" + str("-"*54) +"\n"
   else:
     print "\n" + str("-"*54) + "\n" + str("-"*54) + "\n"*2
 
+def slide(name, content, endDate = None, startDate = None):
+  slide= {
+    'name': name,
+    'content': content,
+    'endDate': endDate,
+    'startDate': startDate }
+  return slide
 
-
-
-############   Input Date   ######
+############   Input Date   ##########
 def InputDate():
   userDate = raw_input("Please enter date in the format mm-dd-yyyy: ")
   month,day,year = userDate.split('-')
@@ -34,36 +39,27 @@ def InputDate():
   return date1
 
 
-############   OS Functions   ######
+############   OS Functions   ########
 def joinDirectoryAndName(OsFilename):
   joint = os.path.join(Directory,OsFilename)
   return joint
 
-
-def changeOsName(oldOsFilename, newOsFilename):
-  os.rename(oldOsFilename, newOsFilename)
-  print "Success! Go have a spot o' tea."
-
-
 def changeOsFilename(oldOsFilename, newOsFilename):
   oldOsFilename += ".png"
-  print "Preparing to rename", oldOsFilename + " to " + str(newOsFilename)+".png"
   oldOsFilename = joinDirectoryAndName(oldOsFilename)
   existsOld = os.path.isfile(oldOsFilename)
   i = 1
   while True:
-    if newOsFilename == 'expired':
-      tempOsFilename = newOsFilename + str(i) +".png"
-    else:
-      tempOsFilename = newOsFilename +".png"
+    tempOsFilename = newOsFilename + str(i) +".png"
     i += 1
     existsNew = os.path.isfile(joinDirectoryAndName(tempOsFilename))
     if existsOld and not existsNew:
       os.rename(oldOsFilename,joinDirectoryAndName(tempOsFilename))
+      print "Renaming", oldOsFilename + " to " + str(newOsFilename)+".png"
       print "Success! Go have a spot o' tea."
-      break #here was changeOSName
+      break
     elif not existsOld:
-      print "File named ", oldOsFilename ," does not exist"
+      print "File named ", oldOsFilename ," does not exist."
       break
     elif existsNew:
       print "File", tempOsFilename," already exists."
@@ -138,6 +134,70 @@ class LinkedList:
     curr.next_node = n
     return
 
+  def executeUserChoice(self, argument):
+    method_name = 'number_' + str(argument)
+    # Get the method from the list. Default to a lambda. Returning 'method' executes it.
+    method = getattr(self, method_name, lambda: self.invalidArg())
+    return method()
+
+  def invalidArg(self):
+    alertBlock("Invalid Argument")
+
+  def number_1(self):
+    alertBlock("Displaying List")
+    print(self.displayList())
+
+  def number_2(self):
+    alertBlock("Removing Expired")
+    self.remove_expired(today)
+
+  def number_3(self):
+    alertBlock("Input New Slide")
+    self.inputSlide()
+
+  def number_4(self):
+    alertBlock("Removing Slide")    
+    slideToRemove = "Slide" + str(raw_input("What slide number do you want to remove? "))
+    print slideToRemove
+    self.removeSlide(slideToRemove)
+
+  def number_5(self):
+    alertBlock("Archiving List" +self.listName)
+    self.archiveList()
+    alertBlock("")
+
+  def number_6(self):
+    changeList()
+
+  def number_X(self):
+    global runProgram 
+    alertBlock('Exiting Program')
+    runProgram = False
+    return runProgram
+
+  def archiveList(self):
+    current_node = self.get_head_node()
+    listFilename = self.listName
+    slideList = []
+    while current_node:
+      slideList.append(slide(current_node.get_name(), current_node.get_content(), current_node.get_endDate(), current_node.startDate))
+      current_node = current_node.get_next_node()
+    print slideList #test Archive
+    with io.open(listFilename + '.json', 'w', encoding='utf8') as outfile:
+      str_ = json.dumps(slideList,
+                      indent=4, sort_keys=True,
+                      separators=(',', ': '), ensure_ascii=False)
+      outfile.write(to_unicode(str_))
+    with open(listFilename + '.json') as data_file:
+      data_loaded = json.load(data_file)
+
+#This tests the original vs the json'd list
+    if (slideList == data_loaded):
+      print '----> SUCCESS! ' + listFilename.upper() + ' created. Which is a ' + (str(type(slideList)).upper())[7:11] + ' of ' + (str(type(slideList[0])).upper()[7:11]) + "'s."
+    else:
+      print '----> UNSUCCESSFUL!!'
+    print listFilename
+
   def displayList(self):
     print "Today's Date: "+today
     self.print_slideCount()
@@ -157,14 +217,14 @@ class LinkedList:
   def remove_expired(self, endDate):
     current_node = self.get_head_node()
     beginningSlideCount = self.slideCount
-#to remove a slide I first check the head node
+    #to remove a slide I first check the head node
     while current_node.get_endDate() <= endDate:
       oldOsFilename = str(current_node.get_name())
       changeOsFilename(oldOsFilename, "expired")
       self.head_node = current_node.get_next_node()
       current_node = self.get_head_node()
       self.slideCount -= 1 
-
+    #then onto the rest of the list  
     while current_node:
       if current_node.get_next_node() != None:
         next_node = current_node.get_next_node()
@@ -178,9 +238,6 @@ class LinkedList:
       else:
         current_node = None
     alertBlock('Slides removed: ' + str(beginningSlideCount - self.slideCount))
-  
-  def archiveList(self):
-    alertBlock("Archive function not ready yet.")
 
   def searchName(self, slideName):
     pass
@@ -189,58 +246,38 @@ class LinkedList:
     slideNames = ['Slide1','Slide2','Slide3','Slide4','Slide5','Slide6','Slide7','Slide8','Slide9','Slide10']
     pass
 
-  def removeSlide(self):
-    pass
+  def removeSlide(self, slideNameToRemove):
+    current_node = self.get_head_node()
+    beginningSlideCount = self.slideCount
+    #to remove a slide I first check the head node
+    if current_node.get_name() == slideNameToRemove:
+      oldOsFilename = str(current_node.get_name())
+      changeOsFilename(oldOsFilename, "deleteMe")
+      self.head_node = current_node.get_next_node()
+      current_node = self.get_head_node()
+      self.slideCount -= 1 
+    #next loop through list
+    while current_node:
+      if current_node.get_next_node() != None:
+        next_node = current_node.get_next_node()
+        if next_node.get_name() == slideNameToRemove:
+          self.slideCount -= 1
+          oldOsFilename = str(next_node.get_name())
+          changeOsFilename(oldOsFilename, "deleteMe")
+          current_node.set_next_node(next_node.get_next_node())
+        elif next_node.get_name() != None:
+          current_node = next_node
+      else:
+        current_node = None
+    alertBlock('Slides removed: ' + (str(beginningSlideCount-self.slideCount)))
 
-  def executeUserChoice(self, argument):
-      method_name = 'number_' + str(argument)
-      # Get the method from the list. Default to a lambda. Returning 'method' executes it.
-      method = getattr(self, method_name, lambda: self.invalidArg())
-      return method()
-
-  def invalidArg(self):
-    alertBlock("Invalid Argument")
-
-  def number_1(self):
-    alertBlock("Displaying List")
-    print(self.displayList())
-
-  def number_2(self):
-    alertBlock("Removing Expired")
-    self.remove_expired(today)
-
-  def number_3(self):
-    alertBlock("Input New Slide")
-    self.inputSlide()
-
-  def number_4(self):
-    alertBlock("Removing Slide")    
-    slideToRemove = "slide" + str(raw_input("What slide number do you want to remove? "))
-    print slideToRemove
-    self.removeSlide()
-    alertBlock("")
-
-  def number_5(self):
-    alertBlock("Archiving List" +self.listName)
-    self.archiveList()
-    alertBlock("")
-
-  def number_6(self):
-    changeList()
-
-  def number_X(self):
-    global runProgram 
-    alertBlock('Exiting Program')
-    runProgram = False
-    return runProgram
 
 
 
 
 ############   User Functions   ######
 def changeList():
-  activeList = str(raw_input("What list would you like to work on? (cpmc,WOW): "
-))
+  activeList = str(raw_input("What list would you like to work on? (cpmc,WOW): "))
   global ll
   ll = LinkedList(activeList)
   activeList += '.json'
@@ -248,11 +285,12 @@ def changeList():
     slideList = json.load(data_file)
   for x in slideList:
     ll.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
+  alertBlock('New list ' + ll.listName.upper() + ' loaded.')
 
 
 def whatNow():
   if (ll.listName):
-    print "Current List is: " + str(ll.listName) + "."
+    print "Current List is: " + ll.listName.upper() + "."
   print "---Make a selection---"
   print "  1   Display List"
   print "  2   Remove Expired Slides"
@@ -260,7 +298,7 @@ def whatNow():
   print "  4   Remove a slide"
   print "  5   Save a list"
   print "  6   Load a list"
-  userChoice = (raw_input("What would you like to do next? (1 - 6, eXit):"))
+  userChoice = raw_input("What would you like to do next? (1 - 6, eXit):").upper()
   ll.executeUserChoice(userChoice)
 
 

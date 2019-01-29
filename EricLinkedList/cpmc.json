@@ -1,11 +1,5 @@
 [
     {
-        "content": "EXPIRED!",
-        "endDate": "2018-03-04",
-        "name": "Slide0",
-        "startDate": null
-    },
-    {
         "content": "Key Dates",
         "endDate": "2019-03-04",
         "name": "Slide1",
@@ -30,12 +24,6 @@
         "startDate": null
     },
     {
-        "content": "Moving Sale",
-        "endDate": "2019-01-18",
-        "name": "Slide5",
-        "startDate": null
-    },
-    {
         "content": "Farewell",
         "endDate": "2019-02-23",
         "name": "Slide6",
@@ -57,12 +45,6 @@
         "content": "Diabetes2",
         "endDate": "2019-06-25",
         "name": "Slide9",
-        "startDate": null
-    },
-    {
-        "content": "STD_See the Future",
-        "endDate": "2019-02-07",
-        "name": "Slide10",
         "startDate": null
     }
 ]
