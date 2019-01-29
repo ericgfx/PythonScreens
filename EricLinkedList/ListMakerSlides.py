@@ -23,7 +23,7 @@ def alertBlock(message):
   else:
     print "\n" + str("-"*54) + "\n" + str("-"*54) + "\n"*2
 
-def slide(name, content, endDate = None, startDate = None):
+def slideForArray(name, content, endDate = None, startDate = None):
   slide= {
     'name': name,
     'content': content,
@@ -143,44 +143,48 @@ class LinkedList:
   def invalidArg(self):
     alertBlock("Invalid Argument")
 
-  def number_1(self):
+  def number_1(self): #Display List
     alertBlock("Displaying List")
     print(self.displayList())
 
-  def number_2(self):
+  def number_2(self): #Remove Expired
     alertBlock("Removing Expired")
     self.remove_expired(today)
 
-  def number_3(self):
+  def number_3(self): #Input New Slide
     alertBlock("Input New Slide")
     self.inputSlide()
 
-  def number_4(self):
+  def number_4(self): #Remove Slide
     alertBlock("Removing Slide")    
     slideToRemove = "Slide" + str(raw_input("What slide number do you want to remove? "))
     print slideToRemove
     self.removeSlide(slideToRemove)
 
-  def number_5(self):
+  def number_5(self): #Archive Slide
     alertBlock("Archiving List" +self.listName)
     self.archiveList()
     alertBlock("")
 
-  def number_6(self):
+  def number_6(self): #Load List
+    alertBlock("Not Available Yet")
+
+  def number_7(self): #Load List
     changeList()
 
-  def number_X(self):
+  def number_X(self): #Exit Program
     global runProgram 
     alertBlock('Exiting Program')
     runProgram = False
     return runProgram
 
-  def archiveList(self):
+  def archiveList(self, listFilename=None): 
     current_node = self.get_head_node()
-    listFilename = self.listName
+    if listFilename == None:
+      listFilename = self.listName
     slideList = []
     while current_node:
-      slideList.append(slide(current_node.get_name(), current_node.get_content(), current_node.get_endDate(), current_node.startDate))
+      slideList.append(slideForArray(current_node.get_name(), current_node.get_content(), current_node.get_endDate(), current_node.startDate))
       current_node = current_node.get_next_node()
     print slideList #test Archive
     with io.open(listFilename + '.json', 'w', encoding='utf8') as outfile:
@@ -296,8 +300,9 @@ def whatNow():
   print "  2   Remove Expired Slides"
   print "  3   Add a new slide"
   print "  4   Remove a slide"
-  print "  5   Save a list"
-  print "  6   Load a list"
+  print "  5   Archive List"
+  print "  6   Duplicate List"
+  print "  7   Load different List"
   userChoice = raw_input("What would you like to do next? (1 - 6, eXit):").upper()
   ll.executeUserChoice(userChoice)
 
