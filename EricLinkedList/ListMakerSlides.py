@@ -32,11 +32,9 @@ def slideForArray(name, content, endDate = None, startDate = None):
   return slide
 
 ############   Input Date   ##########
-def InputDate():
-  userDate = raw_input("Please enter date in the format mm-dd-yyyy: ")
-  month,day,year = userDate.split('-')
-  date1 = date(int(year),int(month),int(day))
-  return date1
+def inputDate():
+  userDate = raw_input("Please enter date in the format yyyy-mm-dd: ")
+  return userDate
 
 
 ############   OS Functions   ########
@@ -151,23 +149,22 @@ class LinkedList:
     alertBlock("Removing Expired")
     self.remove_expired(today)
 
-  def number_3(self): #Input New Slide
-    alertBlock("Input New Slide")
-    self.inputSlide()
+  def number_3(self): #Create New Slide
+    self.createNewSlide()
 
   def number_4(self): #Remove Slide
     alertBlock("Removing Slide")    
     slideToRemove = "Slide" + str(raw_input("What slide number do you want to remove? "))
-    print slideToRemove
     self.removeSlide(slideToRemove)
 
   def number_5(self): #Archive Slide
     alertBlock("Archiving List" +self.listName)
     self.archiveList()
-    alertBlock("")
 
-  def number_6(self): #Load List
-    alertBlock("Not Available Yet")
+  def number_6(self): #Duplicate List
+    duplicateListName = str(raw_input("What would you like name this list as? "))
+    alertBlock("Saving "+ self.listName +" as " + duplicateListName + ".")
+    self.archiveList(duplicateListName)
 
   def number_7(self): #Load List
     changeList()
@@ -197,10 +194,12 @@ class LinkedList:
 
 #This tests the original vs the json'd list
     if (slideList == data_loaded):
-      print '----> SUCCESS! ' + listFilename.upper() + ' created. Which is a ' + (str(type(slideList)).upper())[7:11] + ' of ' + (str(type(slideList[0])).upper()[7:11]) + "'s."
+      if self.slideCount == 0:
+        print '---> HMMM, empty list saved... what are you up to?'
+      else:
+        print '----> SUCCESS! ' + listFilename.upper() + ' created. Which is a ' + (str(type(slideList)).upper())[7:11] + ' of ' + (str(type(slideList[0])).upper()[7:11]) + "'s."
     else:
       print '----> UNSUCCESSFUL!!'
-    print listFilename
 
   def displayList(self):
     print "Today's Date: "+today
@@ -243,12 +242,37 @@ class LinkedList:
         current_node = None
     alertBlock('Slides removed: ' + str(beginningSlideCount - self.slideCount))
 
-  def searchName(self, slideName):
-    pass
-    
-  def inputSlide(self):
-    slideNames = ['Slide1','Slide2','Slide3','Slide4','Slide5','Slide6','Slide7','Slide8','Slide9','Slide10']
-    pass
+  def get_unusedSlidename(self):
+    slideNames = ['Slide1','Slide2','Slide3','Slide4','Slide5','Slide6','Slide7','Slide8','Slide9','Slide10']    
+    current_node = self.get_head_node()
+    beginningSlideCount = self.slideCount
+    emptyFound = False
+    while not emptyFound and current_node:
+      for name in slideNames:
+        if current_node.get_name() == name:
+          slideNames.remove(str(name))
+      current_node = current_node.get_next_node()
+    return slideNames[0]
+
+  def createNewSlide(self,newSlideName = "Slide1"):
+    if self.slideCount > 9:
+      alertBlock("Remove a slide first")
+      return
+    alertBlock("Create New Slide")
+    newSlideName = self.get_unusedSlidename()
+    content = str(raw_input("What is the content? "))
+    yesNo = str(raw_input("Is there an End Date? (Y/N) ")).upper()
+    if yesNo == "Y":
+      endDate = inputDate()
+    else:
+      endDate = None
+    yesNo = str(raw_input("Is there an Starting Date? (Y/N) ")).upper()
+    if yesNo == "Y":
+      startDate = inputDate()
+    else:
+      startDate = None
+    self.addNode(newSlideName, content, endDate, startDate)
+    print("New Slide will be named: " + newSlideName)
 
   def removeSlide(self, slideNameToRemove):
     current_node = self.get_head_node()

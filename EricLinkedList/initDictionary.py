@@ -4,7 +4,7 @@ try:
 except NameError:
     to_unicode = str
     
-listFilename = 'cpmc'
+listFilename = 'wow'
 slideList = []
 def slide(name, content, endDate = None, startDate = None):
 	slide= {
