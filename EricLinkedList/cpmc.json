@@ -6,9 +6,21 @@
         "startDate": null
     },
     {
+        "content": "Newborn Connections",
+        "endDate": "2019-03-01",
+        "name": "Slide10",
+        "startDate": null
+    },
+    {
         "content": "Facility Specialists",
         "endDate": "2019-03-03",
         "name": "Slide2",
+        "startDate": null
+    },
+    {
+        "content": "Charlie",
+        "endDate": "9999-12-31",
+        "name": "Slide3",
         "startDate": null
     },
     {
@@ -18,9 +30,21 @@
         "startDate": null
     },
     {
+        "content": "Brush away Pneum",
+        "endDate": "9999-12-31",
+        "name": "Slide5",
+        "startDate": null
+    },
+    {
         "content": "Farewell",
         "endDate": "2019-02-23",
         "name": "Slide6",
+        "startDate": null
+    },
+    {
+        "content": "Windows Lock",
+        "endDate": "9999-12-31",
+        "name": "Slide7",
         "startDate": null
     },
     {
