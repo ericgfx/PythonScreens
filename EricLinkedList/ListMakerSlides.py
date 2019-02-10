@@ -91,6 +91,17 @@ class Node:
   def get_endDate(self):
     return self.endDate
 
+  def get_startDate(self):
+    return self.startDate
+
+  def printSlide(self):
+    string_list = str(self.get_name() + " " * (13 - len(str(self.get_name()))) + str(self.get_content()) + " "*(20 - len(str(self.get_content()))) + " End Date: ")
+    if self.get_endDate() != None:
+      string_list += str(self.get_endDate()) + " "
+    if self.get_startDate() != None:
+      string_list += " Start Date: " + str(self.get_startDate())
+    alertBlock(string_list)    
+
 ############   Linked List   ######
 # For how to sort a linked list, check out: https://stackoverflow.com/questions/19217647/sorted-linked-list-in-python
 
@@ -157,16 +168,21 @@ class LinkedList:
     slideToRemove = "Slide" + str(raw_input("What slide number do you want to remove? "))
     self.removeSlide(slideToRemove)
 
-  def number_5(self): #Archive Slide
+  def number_E(self): #Archive Slide
+    alertBlock("Edit a Slide")
+    slideToEdit = "Slide" + str(raw_input("What slide number do you want to edit? "))
+    self.editSlide(slideToEdit)
+
+  def number_S(self): #Archive Slide
     alertBlock("Archiving List" +self.listName)
     self.archiveList()
 
-  def number_6(self): #Duplicate List
+  def number_D(self): #Duplicate List
     duplicateListName = str(raw_input("What would you like name this list as? "))
     alertBlock("Saving "+ self.listName +" as " + duplicateListName + ".")
     self.archiveList(duplicateListName)
 
-  def number_7(self): #Load List
+  def number_L(self): #Load List
     changeList()
 
   def number_X(self): #Exit Program
@@ -174,6 +190,28 @@ class LinkedList:
     alertBlock('Exiting Program')
     runProgram = False
     return runProgram
+
+  def editSlide(self, slideToEdit):
+    current_node = self.get_head_node()
+    beginningSlideCount = self.slideCount
+    string_list =""
+    while current_node:
+      if current_node.get_next_node() != None:
+        if current_node.get_name() == slideToEdit:
+          current_node.printSlide()
+          whatToEdit = str(raw_input("What do you want to edit (content, end, start?) ")).lower()
+          if whatToEdit[0:3] == 'con':
+            current_node.content = str(raw_input("New Content: "))
+          elif whatToEdit[0:3] == 'end':
+            current_node.endDate = str(raw_input("New End Date (yyyy-mm-dd): "))
+          elif whatToEdit[0:3] == 'sta':
+            current_node.startDate = str(raw_input("New Start Date (yyyy-mm-dd): "))
+          current_node = None
+        else:
+          current_node = current_node.get_next_node()
+      else:
+        current_node = None
+
 
   def archiveList(self, listFilename=None): 
     current_node = self.get_head_node()
@@ -282,8 +320,8 @@ class LinkedList:
       oldOsFilename = str(current_node.get_name())
       changeOsFilename(oldOsFilename, "deleteMe")
       self.head_node = current_node.get_next_node()
-      current_node = self.get_head_node()
       self.slideCount -= 1 
+      current_node = None
     #next loop through list
     while current_node:
       if current_node.get_next_node() != None:
@@ -322,11 +360,12 @@ def whatNow():
   print "---Make a selection---"
   print "  1   Display List"
   print "  2   Remove Expired Slides"
-  print "  3   Add a new slide"
-  print "  4   Remove a slide"
-  print "  5   Archive List"
-  print "  6   Duplicate List"
-  print "  7   Load different List"
+  print "  3   Add a new Slide"
+  print "  4   Remove a Slide"
+  print "  E   Edit a Slide"
+  print "  S   Save List"
+  print "  D   Duplicate List"
+  print "  L   Load different List"
   userChoice = raw_input("What would you like to do next? (1 - 6, eXit):").upper()
   ll.executeUserChoice(userChoice)
 
