@@ -14,14 +14,15 @@ Directory = '.'
 
 ############   Global Variables ######
 today = str(date.today()) # ie '2017-12-26'
+dashCount = 69
 
 
 ############   Global Functions ######
 def alertBlock(message):
   if message != "":
-    print "\n" + str("-"*54) + "\n" + message + "\n" + str("-"*54) +"\n"
+    print "\n" + str("-"*dashCount) + "\n" + message + "\n" + str("-"*dashCount) +"\n"
   else:
-    print "\n" + str("-"*54) + "\n" + str("-"*54) + "\n"*2
+    print "\n" + str("-"*dashCount) + "\n" + str("-"*dashCount) + "\n"*2
 
 def slideForArray(name, content, endDate = None, startDate = None):
   slide= {
@@ -115,7 +116,7 @@ class LinkedList:
     return self.head_node
 
   def print_slideCount(self):
-    print "Slide Count is " + str(self.slideCount) + ""
+    print "Slide Count of " + self.listName.upper() + " is " + str(self.slideCount) + "."
 
   def addNode(self, name, content, endDate=None, startDate=None):
     curr = self.get_head_node()
@@ -165,12 +166,12 @@ class LinkedList:
 
   def number_4(self): #Remove Slide
     alertBlock("Removing Slide")    
-    slideToRemove = "Slide" + str(raw_input("What slide number do you want to remove? "))
+    slideToRemove = "Slide" + str(raw_input("Slide to remove: "))
     self.removeSlide(slideToRemove)
 
   def number_E(self): #Archive Slide
     alertBlock("Edit a Slide")
-    slideToEdit = "Slide" + str(raw_input("What slide number do you want to edit? "))
+    slideToEdit = "Slide" + str(raw_input("Slide number to edit: "))
     self.editSlide(slideToEdit)
 
   def number_S(self): #Archive Slide
@@ -178,9 +179,10 @@ class LinkedList:
     self.archiveList()
 
   def number_D(self): #Duplicate List
-    duplicateListName = str(raw_input("What would you like name this list as? "))
+    duplicateListName = str(raw_input("Save list as: "))
     alertBlock("Saving "+ self.listName +" as " + duplicateListName + ".")
     self.archiveList(duplicateListName)
+    changeList(duplicateListName)
 
   def number_L(self): #Load List
     changeList()
@@ -242,17 +244,21 @@ class LinkedList:
   def displayList(self):
     print "Today's Date: "+today
     self.print_slideCount()
-    string_list = str("-"*54) +"\n"
+    string_list = str("-"*dashCount) +"\n"
     current_node = self.get_head_node()
 
     while current_node:
       if current_node.get_name() != None:
-        string_list += str(current_node.get_name())+"" + " "*(13 - len(str(current_node.get_name()))) + str(current_node.get_content()) + " "*(20 - len(str(current_node.get_content()))) + " End Date: "
+        string_list += str(current_node.get_name())+"" + " "*(13 - len(str(current_node.get_name()))) + str(current_node.get_content()) + " "*(20 - len(str(current_node.get_content()))) + " End: "
         if current_node.get_endDate() != None:
           string_list += str(current_node.get_endDate())
+        else:
+          string_list += " "*10
+        if current_node.get_startDate() != None:
+          string_list += "   Start: " + str(current_node.get_startDate())
       string_list += "\n"
       current_node = current_node.get_next_node()
-    string_list += str("-"*54) +"\n"
+    string_list += str("-"*dashCount) +"\n"
     return string_list
 
   def remove_expired(self, endDate):
@@ -342,8 +348,9 @@ class LinkedList:
 
 
 ############   User Functions   ######
-def changeList():
-  activeList = str(raw_input("What list would you like to work on? (cpmc,WOW): "))
+def changeList(activeList = None):
+  if activeList == None:
+    activeList = str(raw_input("What list would you like to work on? (cpmc,WOW): "))
   global ll
   ll = LinkedList(activeList)
   activeList += '.json'
@@ -373,6 +380,12 @@ def whatNow():
 ###### Program ######
 runProgram = True
 ll = ""
+futureList = LinkedList("future")
+with open("future.json") as data_file:
+  slideList = json.load(data_file)
+for x in slideList:
+  futureList.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
+futureList.print_slideCount()
 while runProgram:
   if ll:
     whatNow()
