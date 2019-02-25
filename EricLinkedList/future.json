@@ -1,8 +1,14 @@
 [
     {
-        "content": "TestFuture",
+        "content": "Test Future Slide",
         "endDate": "9999-12-31",
         "name": "Slide1",
         "startDate": "2019-03-01"
+    },
+    {
+        "content": "Test 2 slide",
+        "endDate": "2019-03-15",
+        "name": "Slide2",
+        "startDate": "2019-02-23"
     }
 ]

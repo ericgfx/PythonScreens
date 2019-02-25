@@ -70,7 +70,7 @@ class Node:
   def __init__(self, name, content, endDate=None, startDate=None):
     self.name = name
     self.content = content
-    if (endDate == 'null' or endDate == " " or endDate == None):
+    if (endDate == 'nult' or endDate == " " or endDate == None):
       self.endDate = '9999-12-31'
     else:
       self.endDate = endDate
@@ -198,21 +198,21 @@ class LinkedList:
     beginningSlideCount = self.slideCount
     string_list =""
     while current_node:
-      if current_node.get_next_node() != None:
-        if current_node.get_name() == slideToEdit:
-          current_node.printSlide()
-          whatToEdit = str(raw_input("What do you want to edit (content, end, start?) ")).lower()
-          if whatToEdit[0:3] == 'con':
-            current_node.content = str(raw_input("New Content: "))
-          elif whatToEdit[0:3] == 'end':
-            current_node.endDate = str(raw_input("New End Date (yyyy-mm-dd): "))
-          elif whatToEdit[0:3] == 'sta':
-            current_node.startDate = str(raw_input("New Start Date (yyyy-mm-dd): "))
-          current_node = None
-        else:
-          current_node = current_node.get_next_node()
-      else:
+#      if current_node.get_next_node() != None:
+      if current_node.get_name() == slideToEdit:
+        current_node.printSlide()
+        whatToEdit = str(raw_input("What do you want to edit (content, end, start?) ")).lower()
+        if whatToEdit[0:3] == 'con':
+          current_node.content = str(raw_input("New Content: "))
+        elif whatToEdit[0:3] == 'end':
+          current_node.endDate = str(raw_input("New End Date (yyyy-mm-dd): "))
+        elif whatToEdit[0:3] == 'sta':
+          current_node.startDate = str(raw_input("New Start Date (yyyy-mm-dd): "))
         current_node = None
+      else:
+        current_node = current_node.get_next_node()
+#      else:
+#        current_node = None
 
 
   def archiveList(self, listFilename=None): 
@@ -316,7 +316,7 @@ class LinkedList:
     else:
       startDate = None
     self.addNode(newSlideName, content, endDate, startDate)
-    print("New Slide will be named: " + newSlideName)
+    print("New Slide wilt be named: " + newSlideName)
 
   def removeSlide(self, slideNameToRemove):
     current_node = self.get_head_node()
@@ -351,19 +351,20 @@ class LinkedList:
 def changeList(activeList = None):
   if activeList == None:
     activeList = str(raw_input("What list would you like to work on? (cpmc,WOW): "))
-  global ll
-  ll = LinkedList(activeList)
+  global workingList
+  workingList = LinkedList(activeList)
   activeList += '.json'
   with open(activeList) as data_file:
     slideList = json.load(data_file)
   for x in slideList:
-    ll.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
-  alertBlock('New list ' + ll.listName.upper() + ' loaded.')
+    workingList.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
+  alertBlock('New list ' + workingList.listName.upper() + ' loaded.')
+
 
 
 def whatNow():
-  if (ll.listName):
-    print "Current List is: " + ll.listName.upper() + "."
+  if (workingList.listName):
+    print "Current List is: " + workingList.listName.upper() + "."
   print "---Make a selection---"
   print "  1   Display List"
   print "  2   Remove Expired Slides"
@@ -374,12 +375,12 @@ def whatNow():
   print "  D   Duplicate List"
   print "  L   Load different List"
   userChoice = raw_input("What would you like to do next? (1 - 6, eXit):").upper()
-  ll.executeUserChoice(userChoice)
+  workingList.executeUserChoice(userChoice)
 
 
 ###### Program ######
 runProgram = True
-ll = ""
+workingList = ""
 futureList = LinkedList("future")
 with open("future.json") as data_file:
   slideList = json.load(data_file)
@@ -387,7 +388,7 @@ for x in slideList:
   futureList.addNode(x['name'],x['content'],x['endDate'],x['startDate'])
 futureList.print_slideCount()
 while runProgram:
-  if ll:
+  if workingList:
     whatNow()
   else:
     changeList()
