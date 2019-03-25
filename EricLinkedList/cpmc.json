@@ -1,7 +1,7 @@
 [
     {
-        "content": "Wellness",
-        "endDate": "2019-03-21",
+        "content": "Shuttles",
+        "endDate": "9999-12-31",
         "name": "Slide1",
         "startDate": null
     },
@@ -33,12 +33,6 @@
         "content": "Fleming Cancer",
         "endDate": "9999-12-31",
         "name": "Slide6",
-        "startDate": null
-    },
-    {
-        "content": "Charlie",
-        "endDate": "9999-12-31",
-        "name": "Slide7",
         "startDate": null
     },
     {
