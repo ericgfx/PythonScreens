@@ -1,14 +1,14 @@
 [
     {
-        "content": "Test Future Slide",
-        "endDate": "9999-12-31",
+        "content": "Diabetes",
+        "endDate": "2019-08-01",
         "name": "Slide1",
-        "startDate": "2019-03-01"
+        "startDate": "2019-07-01"
     },
     {
-        "content": "Test 2 slide",
-        "endDate": "2019-03-15",
+        "content": "Dia-Beat-This",
+        "endDate": "2019-08-01",
         "name": "Slide2",
-        "startDate": "2019-02-23"
+        "startDate": "2019-07-01"
     }
 ]
