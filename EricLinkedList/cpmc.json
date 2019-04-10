@@ -6,12 +6,6 @@
         "startDate": null
     },
     {
-        "content": "Healing Store",
-        "endDate": "2019-04-01",
-        "name": "Slide10",
-        "startDate": null
-    },
-    {
         "content": "Foundation Campaign",
         "endDate": "9999-12-31",
         "name": "Slide2",
@@ -27,6 +21,12 @@
         "content": "Download your Guides",
         "endDate": "2019-05-04",
         "name": "Slide4",
+        "startDate": null
+    },
+    {
+        "content": "Fleming Cardio",
+        "endDate": "9999-12-31",
+        "name": "Slide5",
         "startDate": null
     },
     {
