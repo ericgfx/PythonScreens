@@ -6,20 +6,26 @@
         "startDate": null
     },
     {
+        "content": "Flemmin Strive",
+        "endDate": "9999-12-31",
+        "name": "Slide10",
+        "startDate": null
+    },
+    {
         "content": "Foundation Campaign",
         "endDate": "9999-12-31",
         "name": "Slide2",
         "startDate": null
     },
     {
-        "content": "EPIC",
-        "endDate": "9999-12-31",
+        "content": "N95 Fit Davies",
+        "endDate": "2019-06-29",
         "name": "Slide3",
         "startDate": null
     },
     {
-        "content": "Download your Guides",
-        "endDate": "2019-05-04",
+        "content": "N95 Fit VNC",
+        "endDate": "2019-06-29",
         "name": "Slide4",
         "startDate": null
     },
@@ -36,8 +42,14 @@
         "startDate": null
     },
     {
-        "content": "Diabetes",
-        "endDate": "2019-06-25",
+        "content": "Physician Burn",
+        "endDate": "2019-04-30",
+        "name": "Slide7",
+        "startDate": null
+    },
+    {
+        "content": "N95 Fit MBC",
+        "endDate": "2019-06-30",
         "name": "Slide8",
         "startDate": null
     },
