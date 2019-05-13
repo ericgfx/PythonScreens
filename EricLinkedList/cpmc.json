@@ -30,10 +30,10 @@
         "startDate": null
     },
     {
-        "content": "BikeToWork",
-        "endDate": "2019-05-09",
+        "content": "Drug Abuse Awareness",
+        "endDate": "9999-12-31",
         "name": "Slide5",
-        "startDate": "2019-05-02"
+        "startDate": null
     },
     {
         "content": "Flemming BEST",
@@ -54,9 +54,9 @@
         "startDate": null
     },
     {
-        "content": "NursesWeek CPMC",
-        "endDate": "2019-05-12",
+        "content": "Sonifi",
+        "endDate": "9999-12-31",
         "name": "Slide9",
-        "startDate": "2019-04-29"
+        "startDate": null
     }
 ]
