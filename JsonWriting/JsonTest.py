@@ -9,8 +9,22 @@ except NameError:
     to_unicode = str
 
 # Define data
-datum = {'slide1': {'name': 'Slide1.PNG',
-                   'content': 'key_dates',
+datum = {'slide1': {'name': 'Chicken Coq-Au-Vin',
+                   'main': 'Chicken',
+                      'ingredients':
+                        {
+                          "chicken": 
+                            {
+                              'qty':1, 
+                              'item_measure':'lb',
+                              'item':'chicken'
+                            },
+                          "butter": 
+                            {
+                              'qty':0.5,
+                              'item_measure':'oz',
+                              'item':'butter'}
+                        },
                    'endDate': 'Mar. 3'},
         'slide2': {'name': 'Slide2.PNG',
                    'content': 'key_dates',
@@ -33,4 +47,7 @@ with open('datum.json') as data_file:
 
 print(datum == data_loaded)
 
-print data_loaded['slide1']['name']
+
+numIngredients = data_loaded['slide1']['ingredients'].items()
+#print data_loaded['slide1']['ingredients'][1]['item'],": ", data_loaded['slide1']['ingredients'][1]['qty'], data_loaded['slide1']['ingredients'][1]['item_measure']
+print len(numIngredients)

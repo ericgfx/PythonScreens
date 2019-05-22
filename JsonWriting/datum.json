@@ -1,8 +1,20 @@
 {
     "slide1": {
-        "content": "key_dates",
         "endDate": "Mar. 3",
-        "name": "Slide1.PNG"
+        "ingredients": {
+            "butter": {
+                "item": "butter",
+                "item_measure": "oz",
+                "qty": 0.5
+            },
+            "chicken": {
+                "item": "chicken",
+                "item_measure": "lb",
+                "qty": 1
+            }
+        },
+        "main": "Chicken",
+        "name": "Chicken Coq-Au-Vin"
     },
     "slide2": {
         "content": "key_dates",
