@@ -48,6 +48,6 @@ with open('datum.json') as data_file:
 print(datum == data_loaded)
 
 
-numIngredients = data_loaded['slide1']['ingredients'].items()
-#print data_loaded['slide1']['ingredients'][1]['item'],": ", data_loaded['slide1']['ingredients'][1]['qty'], data_loaded['slide1']['ingredients'][1]['item_measure']
+numIngredients = data_loaded['slide1']['ingredients'].items() #creates a view
+print data_loaded['slide1']['ingredients'][1]['item'],": ", data_loaded['slide1']['ingredients'][1]['qty'], data_loaded['slide1']['ingredients'][1]['item_measure']
 print len(numIngredients)
