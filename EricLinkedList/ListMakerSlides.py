@@ -10,7 +10,7 @@ except NameError:
     to_unicode = str
 
 ############   Testing Variables #####
-Directory = '.'
+directory = '.'
 
 ############   Global Variables ######
 today = str(date.today()) # ie '2017-12-26'
@@ -40,7 +40,7 @@ def inputDate():
 
 ############   OS Functions   ########
 def joinDirectoryAndName(OsFilename):
-  joint = os.path.join(Directory,OsFilename)
+  joint = os.path.join(directory,OsFilename)
   return joint
 
 def changeOsFilename(oldOsFilename, newOsFilename):
